@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Alfiya</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Parisienne&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --wine-deep:#4a1330;
+    --wine:#6d2148;
+    --wine-soft:#8a3a63;
+    --lavender-pale:#efe6f7;
+    --lavender:#c8a8dd;
+    --lavender-deep:#9d74b8;
+    --paper:#faf5fb;
+    --gold:#c9a66b;
+    --ink:#3a2436;
+    --ink-soft:#6b5468;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -10%, #3a0f27 0%, transparent 60%),
+      linear-gradient(180deg, var(--wine-deep) 0%, var(--wine) 40%, var(--wine-soft) 100%);
+    min-height:100vh;
+    font-family:'Lora', serif;
+    color:var(--ink);
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  /* ambient floating petals */
+  .petals{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:1;
+    overflow:hidden;
+  }
+  .petal{
+    position:absolute;
+    top:-5%;
+    opacity:0.55;
+    animation:drift linear infinite;
+  }
+  @keyframes drift{
+    0%{ transform:translateY(0) translateX(0) rotate(0deg); }
+    100%{ transform:translateY(110vh) translateX(40px) rotate(220deg); }
+  }
+
+  /* ===== HERO / SEAL SECTION ===== */
+  .hero{
+    position:relative;
+    z-index:2;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:6vh 6vw;
+  }
+
+  .eyebrow{
+    letter-spacing:0.35em;
+    text-transform:uppercase;
+    font-size:0.7rem;
+    color:var(--lavender);
+    font-family:'Lora', serif;
+    margin-bottom:2.2rem;
+    opacity:0;
+    animation:fadeUp 1s ease forwards 0.3s;
+  }
+
+  .seal{
+    width:118px;
+    height:118px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #8a2f57, var(--wine-deep) 70%);
+    border:1.5px solid var(--gold);
+    box-shadow:0 8px 30px rgba(0,0,0,0.35), inset 0 0 0 6px rgba(201,166,107,0.12);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:2.4rem;
+    transform:scale(0);
+    animation:sealPop 0.9s cubic-bezier(.34,1.56,.64,1) forwards 0.1s;
+  }
+  .seal span{
+    font-family:'Parisienne', cursive;
+    font-size:2.6rem;
+    color:var(--gold);
+  }
+  @keyframes sealPop{
+    to{ transform:scale(1); }
+  }
+
+  .hero-name{
+    font-family:'Parisienne', cursive;
+    font-size:clamp(3.2rem, 11vw, 6.2rem);
+    color:var(--paper);
+    line-height:1;
+    text-shadow:0 2px 24px rgba(157,116,184,0.5);
+    opacity:0;
+    animation:fadeUp 1.1s ease forwards 0.6s;
+  }
+
+  .hero-sub{
+    margin-top:1.6rem;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:clamp(1.05rem, 2.4vw, 1.4rem);
+    color:var(--lavender-pale);
+    max-width:32ch;
+    opacity:0;
+    animation:fadeUp 1.1s ease forwards 0.9s;
+  }
+
+  .sprig{
+    margin-top:2.6rem;
+    width:150px;
+    opacity:0;
+    animation:fadeUp 1.1s ease forwards 1.15s;
+  }
+
+  .scroll-cue{
+    position:absolute;
+    bottom:6vh;
+    left:50%;
+    transform:translateX(-50%);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:0.6rem;
+    color:var(--lavender-pale);
+    opacity:0;
+    animation:fadeUp 1s ease forwards 1.6s;
+  }
+  .scroll-cue span{
+    font-family:'Lora', serif;
+    font-size:0.68rem;
+    letter-spacing:0.28em;
+    text-transform:uppercase;
+  }
+  .scroll-line{
+    width:1px;
+    height:36px;
+    background:linear-gradient(var(--gold), transparent);
+    animation:pulseLine 2s ease-in-out infinite;
+  }
+  @keyframes pulseLine{
+    0%,100%{ opacity:0.3; }
+    50%{ opacity:1; }
+  }
+
+  @keyframes fadeUp{
+    from{ opacity:0; transform:translateY(18px); }
+    to{ opacity:1; transform:translateY(0); }
+  }
+
+  /* ===== LETTER SECTION ===== */
+  .letter-wrap{
+    position:relative;
+    z-index:2;
+    display:flex;
+    justify-content:center;
+    padding:4vh 5vw 14vh;
+  }
+
+  .letter{
+    max-width:700px;
+    width:100%;
+    background:linear-gradient(180deg, var(--paper), #f4ecf7);
+    border-radius:4px;
+    box-shadow:0 30px 70px rgba(20,4,15,0.45), 0 2px 0 rgba(255,255,255,0.5) inset;
+    padding:clamp(2.4rem, 6vw, 5rem) clamp(1.8rem, 6vw, 4.5rem);
+    position:relative;
+  }
+
+  .letter::before{
+    content:"";
+    position:absolute;
+    inset:14px;
+    border:1px solid rgba(157,116,184,0.35);
+    pointer-events:none;
+  }
+
+  .letter-heading{
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:1.15rem;
+    color:var(--wine-soft);
+    margin-bottom:2rem;
+    letter-spacing:0.02em;
+  }
+
+  .letter p{
+    font-family:'Cormorant Garamond', serif;
+    font-size:clamp(1.18rem, 2.1vw, 1.42rem);
+    line-height:1.85;
+    color:var(--ink);
+    margin-bottom:1.7rem;
+  }
+
+  .letter p:first-of-type::first-letter{
+    font-family:'Parisienne', cursive;
+    font-size:3.6rem;
+    color:var(--wine);
+    float:left;
+    line-height:0.75;
+    padding-right:0.12em;
+    padding-top:0.08em;
+  }
+
+  .divider{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:1rem;
+    margin:2.6rem 0;
+  }
+  .divider svg{ width:60px; height:24px; opacity:0.7; }
+  .divider::before,
+  .divider::after{
+    content:"";
+    height:1px;
+    flex:1;
+    background:linear-gradient(90deg, transparent, var(--lavender-deep), transparent);
+  }
+
+  .signoff{
+    margin-top:2.6rem;
+    text-align:right;
+    font-family:'Parisienne', cursive;
+    font-size:1.9rem;
+    color:var(--wine);
+  }
+
+  /* ===== CLOSING ===== */
+  .closing{
+    position:relative;
+    z-index:2;
+    text-align:center;
+    padding:0 6vw 14vh;
+    color:var(--lavender-pale);
+  }
+  .closing .sprig{ margin:0 auto 1.8rem; animation:none; opacity:1; }
+  .closing h2{
+    font-family:'Parisienne', cursive;
+    font-size:clamp(2rem, 6vw, 3rem);
+    color:var(--paper);
+    font-weight:400;
+  }
+  .closing p{
+    margin-top:0.8rem;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:1.1rem;
+    color:var(--lavender);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; }
+    .petal{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="petals" id="petals"></div>
+
+<section class="hero">
+  <div class="eyebrow">a letter, sealed with love</div>
+  <div class="seal"><span>A</span></div>
+  <h1 class="hero-name">Alfiya</h1>
+  <p class="hero-sub">every word here was written with you in mind</p>
+  <svg class="sprig" viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M20 20 C 60 5, 140 5, 180 20" stroke="#c8a8dd" stroke-width="1.2"/>
+    <g fill="#c8a8dd">
+      <ellipse cx="45" cy="12" rx="4" ry="7" transform="rotate(-30 45 12)"/>
+      <ellipse cx="65" cy="8" rx="4" ry="7" transform="rotate(-15 65 8)"/>
+      <ellipse cx="90" cy="6" rx="4" ry="7" transform="rotate(0 90 6)"/>
+      <ellipse cx="115" cy="8" rx="4" ry="7" transform="rotate(15 115 8)"/>
+      <ellipse cx="135" cy="12" rx="4" ry="7" transform="rotate(30 135 12)"/>
+    </g>
+    <circle cx="100" cy="20" r="2" fill="#9d74b8"/>
+  </svg>
+  <div class="scroll-cue">
+    <span>read on</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<section class="letter-wrap">
+  <div class="letter">
+    <div class="letter-heading">My love,</div>
+
+    <p>Every moment with you feels like the most beautiful chapter of my life. You bring peace to my heart, strength to my soul, and a smile to my face without even trying. I want you to know that no matter what challenges come your way, I will always believe in you because I know how strong, kind, and amazing you are. Never doubt your dreams or your worth&mdash;you are capable of achieving incredible things, and I'll always be here cheering you on, celebrating every success, and holding your hand through every obstacle.</p>
+
+    <p>Being with you isn't just about sharing happy moments; it's about growing together, inspiring each other, and building a future filled with love, trust, and endless memories. I promise to stand beside you in every season of life, to make you laugh when you're sad, to remind you how special you are when you forget, and to love you a little more with every passing day.</p>
+
+    <p>You are my favorite place, my greatest blessing, and the reason I believe that true love exists. No matter where life takes us, as long as I'm with you, I'll always feel like I'm home. I love you more than words can ever express, and I'll keep choosing you, today, tomorrow, and every day after.</p>
+
+    <div class="divider">
+      <svg viewBox="0 0 60 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 12 C 15 2, 45 2, 58 12" stroke="#9d74b8" stroke-width="1"/>
+        <circle cx="30" cy="12" r="3" fill="#9d74b8"/>
+        <ellipse cx="22" cy="9" rx="3" ry="5" fill="#c8a8dd" transform="rotate(-20 22 9)"/>
+        <ellipse cx="38" cy="9" rx="3" ry="5" fill="#c8a8dd" transform="rotate(20 38 9)"/>
+      </svg>
+    </div>
+
+    <div class="letter-heading">My beautiful girl,</div>
+
+    <p>Sometimes I wonder how someone can be as breathtaking as you. It's not just your gorgeous smile that lights up every room or your eyes that make me lose myself every time I look into them&mdash;it's the kindness in your heart, the warmth in your soul, and the love you give so effortlessly that make you truly unforgettable. You have this magical way of making ordinary moments feel extraordinary just by being there.</p>
+
+    <p>I hope you never compare yourself to anyone because there is only one you, and that's your greatest beauty. To me, you're more precious than any sunrise, more comforting than the calmest evening, and more beautiful than words could ever describe. I admire your strength, your gentle heart, your laughter, and even the little things you don't notice about yourself but that I fall in love with every single day.</p>
+
+    <p>I feel incredibly lucky that I get to call you mine, and I promise to keep reminding you how stunning, intelligent, and amazing you are whenever you forget. Keep smiling, my love, because your smile is my favorite view, and your happiness will always be one of the most important things in my life.</p>
+
+    <div class="signoff">forever yours</div>
+  </div>
+</section>
+
+<section class="closing">
+  <svg class="sprig" viewBox="0 0 200 40" fill="none" xmlns="http://www.w3.org/2000/svg" width="150">
+    <path d="M20 20 C 60 35, 140 35, 180 20" stroke="#c8a8dd" stroke-width="1.2"/>
+    <g fill="#c8a8dd">
+      <ellipse cx="45" cy="28" rx="4" ry="7" transform="rotate(30 45 28)"/>
+      <ellipse cx="65" cy="32" rx="4" ry="7" transform="rotate(15 65 32)"/>
+      <ellipse cx="90" cy="34" rx="4" ry="7" transform="rotate(0 90 34)"/>
+      <ellipse cx="115" cy="32" rx="4" ry="7" transform="rotate(-15 115 32)"/>
+      <ellipse cx="135" cy="28" rx="4" ry="7" transform="rotate(-30 135 28)"/>
+    </g>
+    <circle cx="100" cy="20" r="2" fill="#9d74b8"/>
+  </svg>
+  <h2>I love you, Alfiya</h2>
+  <p>today, tomorrow, and every day after</p>
+</section>
+
+<script>
+  // gentle floating lavender petals
+  const container = document.getElementById('petals');
+  const count = window.innerWidth < 600 ? 8 : 14;
+  const colors = ['#c8a8dd', '#9d74b8', '#dcc6ea'];
+  for(let i=0;i<count;i++){
+    const p = document.createElement('div');
+    p.className = 'petal';
+    const size = 6 + Math.random()*8;
+    p.style.left = Math.random()*100 + 'vw';
+    p.style.width = size+'px';
+    p.style.height = (size*1.3)+'px';
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
+    p.style.borderRadius = '0 60% 0 60%';
+    p.style.animationDuration = (14 + Math.random()*12) + 's';
+    p.style.animationDelay = (Math.random()*-20) + 's';
+    container.appendChild(p);
+  }
+</script>
+
+</body>
+</html>
