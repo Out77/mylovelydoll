@@ -270,6 +270,31 @@
     *{ animation-duration:0.01ms !important; animation-iteration-count:1 !important; }
     .petal{ display:none; }
   }
+/* Next Button */
+.next-container{
+  text-align:center;
+  padding:30px 0 80px;
+}
+
+.next-btn{
+  display:inline-block;
+  padding:15px 45px;
+  background:linear-gradient(135deg, #c9a66b, #8a3a63);
+  color:#fff;
+  text-decoration:none;
+  font-family:'Cormorant Garamond', serif;
+  font-size:1.3rem;
+  border-radius:40px;
+  border:2px solid rgba(255,255,255,0.3);
+  box-shadow:0 10px 30px rgba(0,0,0,0.3);
+  transition:all .3s ease;
+}
+
+.next-btn:hover{
+  transform:translateY(-4px) scale(1.05);
+  box-shadow:0 15px 35px rgba(0,0,0,0.4);
+  background:linear-gradient(135deg, #d8b57a, #a04d77);
+}
 </style>
 </head>
 <body>
@@ -344,6 +369,11 @@
   <h2>I love you, Alfiya</h2>
   <p>today, tomorrow, and every day after</p>
 </section>
+<div class="next-container">
+    <a href="page2.html" class="next-btn">
+        Continue Our Story ❤️ →
+    </a>
+</div>
 
 <script>
   // gentle floating lavender petals
