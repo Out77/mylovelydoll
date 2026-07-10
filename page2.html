@@ -99,7 +99,7 @@
   }
 
   .vinyl{
-    width:150px;
+  width:150px;
     height:150px;
     border-radius:50%;
     background:
@@ -110,8 +110,11 @@
     justify-content:center;
     animation:spin 6s linear infinite;
     animation-play-state:paused;
-  }
-  .vinyl.spinning{ animation-play-state:running; }
+}
+
+.vinyl.spinning{
+    animation-play-state:running;
+}
   @keyframes spin{ to{ transform:rotate(360deg); } }
 
   .vinyl-label{
@@ -130,24 +133,7 @@
     color:var(--gold);
   }
 
-  .play-btn{
-    position:absolute;
-    bottom:-14px;
-    width:46px;
-    height:46px;
-    border-radius:50%;
-    background:var(--paper);
-    border:1px solid var(--gold);
-    box-shadow:0 6px 18px rgba(0,0,0,0.35);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    cursor:pointer;
-    transition:transform 0.2s ease;
-  }
-  .play-btn:hover{ transform:scale(1.06); }
-  .play-btn svg{ width:16px; height:16px; fill:var(--wine); margin-left:2px; }
-  .play-btn.is-playing svg{ margin-left:0; }
+
 
   .progress-row{
     margin-top:1.6rem;
@@ -272,9 +258,7 @@
     <div class="vinyl" id="vinyl">
       <div class="vinyl-label"><span>A</span></div>
     </div>
-    <button class="play-btn" id="playBtn" aria-label="Play song">
-      <svg id="playIcon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-    </button>
+
   </div>
 
   <div class="progress-row">
@@ -283,10 +267,12 @@
     <span class="time" id="totalTime">1:00</span>
   </div>
 
-  <p class="hint" id="hint">tap to play our one minute</p>
+  <p class="hint" id="hint">our song is playing</p>
 </div>
 
-<audio id="song" src="song.mp3" preload="auto"></audio>
+<audio id="song" autoplay loop preload="auto">
+    <source src="song.mp3" type="audio/mpeg">
+</audio>
 
 <div class="lyrics" id="lyrics">
   <!-- lyric lines injected by JS -->
@@ -356,15 +342,11 @@
   // ---- audio controls ----
   const audio = document.getElementById('song');
   const vinyl = document.getElementById('vinyl');
-  const playBtn = document.getElementById('playBtn');
-  const playIcon = document.getElementById('playIcon');
   const progressFill = document.getElementById('progressFill');
   const curTimeEl = document.getElementById('curTime');
   const totalTimeEl = document.getElementById('totalTime');
   const hint = document.getElementById('hint');
 
-  const PAUSE_ICON = '<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>';
-  const PLAY_ICON = '<path d="M8 5v14l11-7z"/>';
 
   function formatTime(s){
     const m = Math.floor(s/60);
@@ -379,39 +361,18 @@
     });
   }
 
-  playBtn.addEventListener('click', () => {
-    if (audio.paused){
-      audio.play();
-    } else {
-      audio.pause();
-    }
-  });
-
-  audio.addEventListener('play', () => {
+audio.addEventListener('play', () => {
     vinyl.classList.add('spinning');
-    playIcon.innerHTML = PAUSE_ICON;
-    playBtn.classList.add('is-playing');
-    hint.textContent = 'our song is playing';
+    hint.textContent = 'our song is playing ❤️';
   });
 
-  audio.addEventListener('pause', () => {
+audio.addEventListener('pause', () => {
     vinyl.classList.remove('spinning');
-    playIcon.innerHTML = PLAY_ICON;
-    playBtn.classList.remove('is-playing');
-    hint.textContent = 'tap to play our one minute';
-  });
+});
 
   audio.addEventListener('timeupdate', () => {
     const t = audio.currentTime;
-    if (t >= DURATION_CAP){
-      audio.pause();
-      audio.currentTime = 0;
-      progressFill.style.width = '0%';
-      curTimeEl.textContent = '0:00';
-      document.querySelectorAll('.lyric-line').forEach(el => el.classList.remove('active'));
-      hint.textContent = 'tap to play our one minute, again';
-      return;
-    }
+    
     progressFill.style.width = (t / DURATION_CAP * 100) + '%';
     curTimeEl.textContent = formatTime(t);
     setActiveLine(t);
@@ -420,6 +381,12 @@
   audio.addEventListener('loadedmetadata', () => {
     totalTimeEl.textContent = formatTime(Math.min(DURATION_CAP, audio.duration || DURATION_CAP));
   });
+window.addEventListener("load", () => {
+    const audio = document.getElementById("song");
+    audio.play().catch(() => {
+        console.log("Autoplay blocked by browser.");
+    });
+});
 </script>
 
 </body>
